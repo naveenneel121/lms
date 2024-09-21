@@ -16,5 +16,10 @@ pipeline {
                 sh 'pwd'
             }
         }
+	stage('Unknown') {
+            steps {
+                sh 'whoami'
+            }
+        }
     }
 }
