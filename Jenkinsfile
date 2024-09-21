@@ -8,12 +8,12 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'dh -f'
+                sh 'df -h'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'free'
+                sh 'pwd'
             }
         }
     }
