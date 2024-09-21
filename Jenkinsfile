@@ -9,11 +9,11 @@ pipeline {
             }
         }
 	}
-        stage('Build') {
+        stage('Build LMS') {
             steps {
-				echo 'Start Building..'
-				sh sudo 'cd webapp && npm install && npm run build'
-                echo 'Completed Building...'
+                echo 'Build LMS'
+                sh 'cd webapp && npm install && npm run build'
+                echo 'Build Completed'
             }
         }
 		
@@ -34,7 +34,7 @@ pipeline {
 					def packageJson = readJSON file: 'webapp/package. json'
 					def packageJSONVersion = packageJson.version
 					echo "${packageJSONVersion}"
-					sh "curl -u admin:lms12345 -X GET \'http://3.109.186.51:8081/repository/lms/lms-${packageJSONVersion}.zip\' --output lms-'${packageJSONVersion}'.zip"
+					sh "curl -u admin:lms12345 -X GET \'http://52.11.92.224:8081/repository/lms/lms-${packageJSONVersion}.zip\' --output lms-'${packageJSONVersion}'.zip"
 					sh 'sudo rm -rf /var/www/html/*'
 					sh "sudo unzip -o lms-'${packageJSONVersion}'.zip"
 					sh "sudo cp -r webapp/dist/* /var/www/html"
