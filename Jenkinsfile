@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'CODE QUALITY CHECK'
                 sh 'cd webapp && sudo docker run --rm -e SONAR_HOST_URL="http://65.1.85.29:9000" -v ".:/usr/src" -e SONAR_TOKEN="sqp_076c069eda86b6055fb9114970724454f26ddcc7" sonarsource/sonar-scanner-cli -Dsonar.projectKey=lms'
-                echo 'CODE QUALITY COMPLETED' 
+                echo 'CODE QUALITY COMPLETED as expected' 
             }
         }
         stage('Build LMS') {
