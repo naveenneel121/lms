@@ -6,7 +6,7 @@ pipeline {
                 echo 'CODE QUALITY CHECK'
                 sh 'pwd'
                 sh 'whoami'
-                sh 'cd webapp && sudo docker run --rm -e SONAR_HOST_URL="http://13.201.83.135:9000" -v ".:/usr/src" -e SONAR_TOKEN="sqp_076c069eda86b6055fb9114970724454f26ddcc7" sonarsource/sonar-scanner-cli -Dsonar.projectKey=lms'
+                sh 'cd webapp && sudo docker run --rm -e SONAR_HOST_URL="http://13.201.83.135:9000" -v ".:/usr/src" -e SONAR_TOKEN="sqp_842ac7e930dee6ab4ba2e0196c1d3cee4f725fc7" sonarsource/sonar-scanner-cli -Dsonar.projectKey=lms'
                 echo 'CODE QUALITY COMPLETED' 
             }
         }
