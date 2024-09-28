@@ -3,6 +3,8 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'naveenneel12o/lms-frontend'  // Replace with your desired image name
         DOCKER_REGISTRY = 'https://hub.docker.com/'  // Optional: Replace with your Docker registry URL
+        DOCKER_CRED = 'dockerhub'
+        
     }
     stages {
         stage('Sonar Analysis') {
@@ -92,11 +94,12 @@ pipeline {
                     // Login to Docker registry
                     sh 'whoami'
                     sh 'pwd'
-                    sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
+                    //sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
+                    docker.withRegistry( '', DOCKER_CRED ) 
 
                     // Tag and push the Docker image
                     sh 'whoami'
-                    sh 'pwd'
+                   // sh 'pwd'
                     sh "docker tag ${DOCKER_IMAGE}:${env.BUILD_ID} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
                     sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
                 }
