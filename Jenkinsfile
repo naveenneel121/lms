@@ -67,7 +67,7 @@ pipeline {
                     // Build the Docker image using the Dockerfile
                     sh 'whoami'
                     sh 'pwd'
-                    sh 'cd /webapp'
+                    //sh 'cd /webapp'
                     //sh 'ls /var/lib/jenkins/workspace/lms-test/webapp/'
                     sh 'ls'
                     sh 'cat Dockerfile'
