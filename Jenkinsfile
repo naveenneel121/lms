@@ -81,7 +81,7 @@ pipeline {
                     // Run the Docker image for testing
                     sh 'whoami'
                     sh 'pwd'
-                    sh "docker run --rm ${DOCKER_IMAGE}:${env.BUILD_ID}"
+                    sh "docker run -dt --name lms-frontend -p 80:80 ${DOCKER_IMAGE}:${env.BUILD_ID}"
                 }
             }
         }
