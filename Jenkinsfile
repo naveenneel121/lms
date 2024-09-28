@@ -109,7 +109,9 @@ pipeline {
         stage('Clean Up Workspace') {
             steps {
                 echo 'Cleaning Workspace'
+                sh "docker rmi ${DOCKER_IMAGE}:${env.BUILD_ID}"
                 cleanWs()
+                
             }
         }
     }
