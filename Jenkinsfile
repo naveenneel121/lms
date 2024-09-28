@@ -104,11 +104,13 @@ pipeline {
             }
         }
 	stage('Push Image to Docker Hub') {         
-    		steps{                            
- 			sh 'sudo docker push ${DOCKER_IMAGE}:${env.BUILD_ID}'           
+    	    steps {  
+		script {
+ 			sh 'sudo docker push ${DOCKER_IMAGE}:${env.BUILD_ID}'
 			echo 'Push Image Completed'
     			}
 		}
+	}
         stage('Clean Up Workspace') {
             steps {
                 echo 'Cleaning Workspace'
