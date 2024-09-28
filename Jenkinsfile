@@ -65,6 +65,7 @@ pipeline {
                     // Build the Docker image using the Dockerfile
                     sh 'whoami'
                     sh 'pwd'
+                    sh 'cd /home/ubuntu/lms/webapp/'
                     sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} ."
                 }
             }
