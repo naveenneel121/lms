@@ -67,6 +67,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    sh 'cd webapp'
                     // Build the Docker image using the Dockerfile
                     sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} ."
                 }
