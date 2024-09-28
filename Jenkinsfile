@@ -77,7 +77,7 @@ pipeline {
             }
         }
 
-        stage('Test Docker Image') {  // Optional: You can skip this if you don’t need to test the image.
+        /* stage('Test Docker Image') {  // Optional: You can skip this if you don’t need to test the image.
             steps {
                 script {
                     // Run the Docker image for testing
@@ -86,7 +86,7 @@ pipeline {
                     sh "docker run -dt --name lms-frontend -p 80:80 ${DOCKER_IMAGE}:${env.BUILD_ID}"
                 }
             }
-        }
+        } */ 
 
         stage('Login to Docker HUB') {  // Optional: Push the image to a Docker registry
             steps {
