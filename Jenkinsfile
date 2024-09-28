@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'naveenneel12o/lms-frontend'  // Replace with your desired image name
         DOCKER_REGISTRY = 'https://hub.docker.com/'  // Optional: Replace with your Docker registry URL
-        DOCKER_CRED = credentials('dockerhub')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         
     }
     stages {
@@ -88,7 +88,7 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {  // Optional: Push the image to a Docker registry
+        stage('Login to Docker HUB') {  // Optional: Push the image to a Docker registry
             steps {
                 script {
                     // Login to Docker registry
@@ -98,12 +98,14 @@ pipeline {
                     //docker.withRegistry( '', DOCKER_CRED ) 
 
                     // Tag and push the Docker image
-                    sh 'whoami'
+                    //sh 'whoami'
                    // sh 'pwd'
                     //sh "docker tag ${DOCKER_IMAGE}:${env.BUILD_ID} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
                     //sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
-                    sh 'echo $DOCKER_CRED | docker login -u $DOCKER_CRED --password-stdin'
-                    sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
+                    //sh 'echo $DOCKER_CRED | docker login -u $DOCKER_CRED --password-stdin'
+                    //sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
+                    sh 'echo $DOCKERHUB_CREDENTIALS PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    echo 'Login Completed'
                 }
             }
         }
@@ -111,8 +113,8 @@ pipeline {
         stage('Clean Up Workspace') {
             steps {
                 echo 'Cleaning Workspace'
-                sh "docker rmi ${DOCKER_IMAGE}:${env.BUILD_ID}"
-                cleanWs()
+                //sh "docker rmi ${DOCKER_IMAGE}:${env.BUILD_ID}"
+                //cleanWs()
                 
             }
         }
