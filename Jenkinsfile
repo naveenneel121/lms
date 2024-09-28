@@ -68,7 +68,10 @@ pipeline {
                     sh 'whoami'
                     sh 'pwd'
                     sh 'cd /var/lib/jenkins/workspace/lms-test/webapp/'
-                    sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} ."
+                    sh 'ls /var/lib/jenkins/workspace/lms-test/webapp/'
+                    sh 'ls'
+                    sh 'cat Dockerfile'
+                    sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} -f /var/lib/jenkins/workspace/lms-test/webapp/Dockerfile ."
                 }
             }
         }
