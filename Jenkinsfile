@@ -49,7 +49,7 @@ pipeline {
                     sh "sudo unzip -o lms-'${packageJSONVersion}'.zip"
                     //sh "sudo cp -r webapp/* /home/ubuntu/lms/webapp/"
                     sh "sudo ls /var/lib/jenkins/workspace/lms-test/webapp/"
-                    sh "sudo cp -r webapp/* /var/lib/jenkins/workspace/lms-test/webapp/"
+                    //sh "sudo cp -r webapp/* /var/lib/jenkins/workspace/lms-test/webapp/"
                 }
             }
         }                
