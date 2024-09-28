@@ -67,7 +67,7 @@ pipeline {
                     // Build the Docker image using the Dockerfile
                     sh 'whoami'
                     sh 'pwd'
-                    sh 'sudo cd /var/lib/jenkins/workspace/lms-test/webapp/'
+                    sh 'cd /var/lib/jenkins/workspace/lms-test/webapp/'
                     sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} ."
                 }
             }
