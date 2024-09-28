@@ -10,7 +10,7 @@ pipeline {
                 echo 'CODE QUALITY CHECK'
                 sh 'pwd'
                 sh 'whoami'
-                sh 'cd webapp && sudo docker run --rm -e SONAR_HOST_URL="http://3.110.207.106:9000" -v ".:/usr/src" -e SONAR_TOKEN="sqp_842ac7e930dee6ab4ba2e0196c1d3cee4f725fc7" sonarsource/sonar-scanner-cli -Dsonar.projectKey=lms'
+                sh 'cd webapp && sudo docker run --rm -e SONAR_HOST_URL="http://65.0.31.41:9000" -v ".:/usr/src" -e SONAR_TOKEN="sqp_d7d830eba8187a3e4a53df27e603ef4bd34b9896" sonarsource/sonar-scanner-cli -Dsonar.projectKey=lms'
                 echo 'CODE QUALITY COMPLETED' 
             }
         }
@@ -33,7 +33,7 @@ pipeline {
                     def packageJSONVersion = packageJson.version
                     echo "${packageJSONVersion}"
                     sh "zip webapp/lms-${packageJSONVersion}.zip -r webapp/dist"
-                    sh "curl -v -u admin:lms12345 --upload-file webapp/lms-${packageJSONVersion}.zip http://3.110.207.106:8081/repository/lms/"
+                    sh "curl -v -u admin:lms12345 --upload-file webapp/lms-${packageJSONVersion}.zip http://65.0.31.41:8081/repository/lms/"
                 }
             }
         } 
@@ -45,7 +45,7 @@ pipeline {
                     def packageJSONVersion = packageJson.version
                     echo "${packageJSONVersion}" 
                     sh 'sudo rm -rf /home/ubuntu/lms/webapp/lms.zip'
-                    sh "curl -u admin:lms12345 -X GET \'http://3.110.207.106:8081/repository/lms/lms-${packageJSONVersion}.zip\' --output lms-'${packageJSONVersion}'.zip"
+                    sh "curl -u admin:lms12345 -X GET \'http://65.0.31.41:8081/repository/lms/lms-${packageJSONVersion}.zip\' --output lms-'${packageJSONVersion}'.zip"
                     sh "sudo unzip -o lms-'${packageJSONVersion}'.zip"
                     //sh "sudo cp -r webapp/* /home/ubuntu/lms/webapp/"
                     sh "sudo ls /var/lib/jenkins/workspace/lms-test/webapp/"
