@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = 'naveenneel12o/lms-frontend'  // Replace with your desired image name
-        DOCKER_REGISTRY = 'https://registry.hub.docker.com'  // Optional: Replace with your Docker registry URL
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        //DOCKER_REGISTRY = 'https://registry.hub.docker.com'  // Optional: Replace with your Docker registry URL
+        DOCKERHUB_CREDENTIALS= credentials('dockerhub')     
         
     }
     stages {
@@ -98,14 +98,8 @@ pipeline {
                     //docker.withRegistry( '', DOCKER_CRED ) 
 
                     // Tag and push the Docker image
-                    //sh 'whoami'
-                   // sh 'pwd'
-                    //sh "docker tag ${DOCKER_IMAGE}:${env.BUILD_ID} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
-                    //sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
-                    //sh 'echo $DOCKER_CRED | docker login -u $DOCKER_CRED --password-stdin'
-                    //sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
-                    sh 'echo $DOCKERHUB_CREDENTIALS PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    echo 'Login Completed'
+		            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+		            echo 'Login Completed' 
                 }
             }
         }
