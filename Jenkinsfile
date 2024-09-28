@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_IMAGE = 'naveenneel12o/lms-frontend'  // Replace with your desired image name
+        DOCKER_REGISTRY = 'https://hub.docker.com/'  // Optional: Replace with your Docker registry URL
+    }
     stages {
         stage('Sonar Analysis') {
             steps {
@@ -51,6 +55,43 @@ pipeline {
             steps {
                 echo 'Cleaning Workspace'
                 cleanWs()
+            }
+        }
+                stage('Checkout') {
+            steps {
+                // Pull the code from your source control
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image using the Dockerfile
+                    sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} ."
+                }
+            }
+        }
+
+        stage('Test Docker Image') {  // Optional: You can skip this if you don’t need to test the image.
+            steps {
+                script {
+                    // Run the Docker image for testing
+                    sh "docker run --rm ${DOCKER_IMAGE}:${env.BUILD_ID}"
+                }
+            }
+        }
+
+        stage('Push Docker Image') {  // Optional: Push the image to a Docker registry
+            steps {
+                script {
+                    // Login to Docker registry
+                    sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
+
+                    // Tag and push the Docker image
+                    sh "docker tag ${DOCKER_IMAGE}:${env.BUILD_ID} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
+                    sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
+                }
             }
         }
     }
