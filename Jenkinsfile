@@ -106,7 +106,7 @@ pipeline {
 	stage('Push Image to Docker Hub') {         
     	    steps {  
 		script {
- 			sh 'sudo docker push $DOCKER_IMAGE:${env.BUILD_ID}'
+ 			sh 'sudo docker push $DOCKER_IMAGE:$BUILD_ID'
 			echo 'Push Image Completed'
     			}
 		}
