@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = 'naveenneel12o/lms-frontend'  // Replace with your desired image name
-        //DOCKER_REGISTRY = 'https://registry.hub.docker.com'  // Optional: Replace with your Docker registry URL
         DOCKERHUB_CREDENTIALS= credentials('dockerhub')     
         
     }
@@ -49,18 +48,10 @@ pipeline {
                     sh 'sudo rm -rf /home/ubuntu/lms/webapp/lms.zip'
                     sh "curl -u admin:lms12345 -X GET \'http://3.111.169.138:8081/repository/lms/lms-${packageJSONVersion}.zip\' --output lms-'${packageJSONVersion}'.zip"
                     sh "sudo unzip -o lms-'${packageJSONVersion}'.zip"
-                    //sh "sudo cp -r webapp/* /home/ubuntu/lms/webapp/"
                     sh "sudo ls /var/lib/jenkins/workspace/lms-test/webapp/"
-                    //sh "sudo cp -r webapp/* /var/lib/jenkins/workspace/lms-test/webapp/"
                 }
             }
         }                
-       // stage('Checkout') {
-       //     steps {
-        //        // Pull the code from your source control
-        //        //checkout scm
-        //    }
-       // }
 
         stage('Build Docker Image') {
             steps {
@@ -77,7 +68,7 @@ pipeline {
             }
         }
 
-        /* stage('Test Docker Image') {  // Optional: You can skip this if you don’t need to test the image.
+        stage('Create Docker Container using new Image') {  // Optional: You can skip this if you don’t need to test the image.
             steps {
                 script {
                     // Run the Docker image for testing
@@ -86,16 +77,14 @@ pipeline {
                     sh "docker run -dt --name lms-frontend -p 80:80 ${DOCKER_IMAGE}:${env.BUILD_ID}"
                 }
             }
-        } */ 
+        } 
 
-        stage('Login to Docker HUB') {  // Optional: Push the image to a Docker registry
+        stage('Login to Docker HUB') { 
             steps {
                 script {
                     // Login to Docker registry
                     sh 'whoami'
                     sh 'pwd'
-                    //sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
-                    //docker.withRegistry( '', DOCKER_CRED ) 
 
                     // Tag and push the Docker image
 		            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
@@ -114,8 +103,6 @@ pipeline {
         stage('Clean Up Workspace') {
             steps {
                 echo 'Cleaning Workspace'
-                //sh "docker rmi ${DOCKER_IMAGE}:${env.BUILD_ID}"
-                //cleanWs()
                 
             }
         }
