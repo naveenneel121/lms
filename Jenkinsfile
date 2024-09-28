@@ -64,6 +64,7 @@ pipeline {
                     sh 'cd webapp'
                     // Build the Docker image using the Dockerfile
                     sh 'whoami'
+                    sh 'pwd'
                     sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} ."
                 }
             }
@@ -74,6 +75,7 @@ pipeline {
                 script {
                     // Run the Docker image for testing
                     sh 'whoami'
+                    sh 'pwd'
                     sh "docker run --rm ${DOCKER_IMAGE}:${env.BUILD_ID}"
                 }
             }
@@ -84,10 +86,12 @@ pipeline {
                 script {
                     // Login to Docker registry
                     sh 'whoami'
+                    sh 'pwd'
                     sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
 
                     // Tag and push the Docker image
                     sh 'whoami'
+                    sh 'pwd'
                     sh "docker tag ${DOCKER_IMAGE}:${env.BUILD_ID} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
                     sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
                 }
