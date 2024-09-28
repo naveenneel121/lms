@@ -51,12 +51,12 @@ pipeline {
                 }
             }
         }                
-        stage('Checkout') {
-            steps {
-                // Pull the code from your source control
-                //checkout scm
-            }
-        }
+       // stage('Checkout') {
+       //     steps {
+        //        // Pull the code from your source control
+        //        //checkout scm
+        //    }
+       // }
 
         stage('Build Docker Image') {
             steps {
