@@ -48,8 +48,8 @@ pipeline {
                     sh "curl -u admin:lms12345 -X GET \'http://3.110.207.106:8081/repository/lms/lms-${packageJSONVersion}.zip\' --output lms-'${packageJSONVersion}'.zip"
                     sh "sudo unzip -o lms-'${packageJSONVersion}'.zip"
                     sh "sudo cp -r webapp/* /home/ubuntu/lms/webapp/"
-                    sh "sudo ls /var/lib/jenkins/workspace/lms-test"
-                    sh "sudo cp -r webapp/* /var/lib/jenkins/workspace/lms-test/webapp"
+                    sh "sudo ls /var/lib/jenkins/workspace/lms-test/webapp/"
+                    //sh "sudo cp -r webapp/* /var/lib/jenkins/workspace/lms-test/webapp"
                 }
             }
         }                
