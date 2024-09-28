@@ -104,7 +104,7 @@ pipeline {
                     //sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
                     //sh 'echo $DOCKER_CRED | docker login -u $DOCKER_CRED --password-stdin'
                     //sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
-                    sh 'echo $DOCKERHUB_CREDENTIALS PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password string'
+                    sh 'echo $DOCKERHUB_CREDENTIALS PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     echo 'Login Completed'
                 }
             }
