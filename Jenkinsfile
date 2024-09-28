@@ -51,16 +51,10 @@ pipeline {
                 }
             }
         }                
-        stage('Clean Up Workspace') {
-            steps {
-                echo 'Cleaning Workspace'
-                cleanWs()
-            }
-        }
-                stage('Checkout') {
+        stage('Checkout') {
             steps {
                 // Pull the code from your source control
-                checkout scm
+                //checkout scm
             }
         }
 
@@ -97,6 +91,13 @@ pipeline {
                     sh "docker tag ${DOCKER_IMAGE}:${env.BUILD_ID} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
                     sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_ID}"
                 }
+            }
+        }
+        
+        stage('Clean Up Workspace') {
+            steps {
+                echo 'Cleaning Workspace'
+                cleanWs()
             }
         }
     }
