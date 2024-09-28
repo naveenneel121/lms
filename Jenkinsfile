@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE = 'naveenneel12o/lms-frontend'  // Replace with your desired image name
-        DOCKER_REGISTRY = 'https://hub.docker.com/'  // Optional: Replace with your Docker registry URL
+        DOCKER_REGISTRY = 'https://registry.hub.docker.com'  // Optional: Replace with your Docker registry URL
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         
     }
