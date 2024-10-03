@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = 'naveenneel12o/lms-frontend'  // Replace with your desired image name
+        DOCKER_IMAGE = 'naveenneel12o/lms-frontend' 
         DOCKERHUB_CREDENTIALS= credentials('dockerhub')     
         
     }
@@ -62,13 +62,12 @@ pipeline {
                     sh 'pwd'
                     sh 'cd /var/lib/jenkins/workspace/lms-test/webapp'
                     sh 'ls'
-                    //sh 'cat Dockerfile'
                     sh "docker build -t ${DOCKER_IMAGE}:${env.BUILD_ID} -f /var/lib/jenkins/workspace/lms-test/webapp/Dockerfile ."
                 }
             }
         }
 
-        stage('Create Docker Container using new Image') {  // Optional: You can skip this if you don’t need to test the image.
+        stage('Create Docker Container using new Image') {  
             steps {
                 script {
                     // Run the Docker image for testing
